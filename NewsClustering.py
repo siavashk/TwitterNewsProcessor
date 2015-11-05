@@ -42,7 +42,7 @@ class NewsClustering(object):
 
         thread = threading.Thread(target=self.run, args=())
         thread.daemon = True
-        time.sleep(delay)
+        time.sleep(self._delay)
         thread.start()
 
     def tokenize_and_stem(self, text):
@@ -90,15 +90,16 @@ class NewsClustering(object):
         return document
 
     def _kmeans(self):
+        print('entering kmeans')
         # Define vectorizer parameters
-        self._vectorizer = TfidfVectorizer(tokenizer=self._tokenize_and_stem)
+        self._vectorizer = TfidfVectorizer(tokenizer=self.tokenize_and_stem)
 
         # Fit the vectorizer to the news
         self._tfidf_matrix = self._vectorizer.fit_transform(self._document)
         self._vocabulary = self._vectorizer.get_feature_names()
         self._distance = 1 - cosine_similarity(self._tfidf_matrix)
 
-        self._km = KMeans(n_clusters=self.n_clusters)
+        self._km = KMeans(n_clusters=self._nclusters)
 
         self._km.fit(self._tfidf_matrix)
 
@@ -149,7 +150,7 @@ class NewsClustering(object):
         # we will also specify `random_state` so the plot is reproducible.
         mds = MDS(n_components=2, dissimilarity="precomputed", random_state=1)
 
-        pos = mds.fit_transform(self._dist)  # shape (n_components, n_samples)
+        pos = mds.fit_transform(self._distance)  # shape (n_components, n_samples)
 
         xs, ys = pos[:, 0], pos[:, 1]
         df = pd.DataFrame(dict(x=xs, y=ys, label=self._clusters))
@@ -192,7 +193,8 @@ class NewsClustering(object):
         plt.savefig(str(t) + '_clusters.png', dpi=200)
 
     def run(self):
-            self._preprocess()
-            while True:
-                self._kmeans()
-                time.sleep(self._refresh)
+        self._document = self._preprocess()
+        while True:
+            #if self._method == 'kmeans':
+            self._kmeans()
+            time.sleep(self._refresh)
