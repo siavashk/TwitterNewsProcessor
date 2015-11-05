@@ -5,7 +5,7 @@
 ###############################################################################
 
 --------------------------------
-1 WHAT DOES THE PACKAGE CONTAIN?
+A. WHAT DOES THE PACKAGE CONTAIN?
 --------------------------------
 
 The code contains two classes used for natural language processing of news 
@@ -26,7 +26,7 @@ In summary, this package contains the following files:
 ###############################################################################
 
 --------------------------------
-2 KNOWN DEPENDENCIES
+B. KNOWN DEPENDENCIES
 --------------------------------
 
 The code was developed and tested with Python 3.4.3 in Ubuntu 14.0.4 using Pycharm.
@@ -41,7 +41,7 @@ The following packages were used:
 ###############################################################################
 
 --------------------------------
-3 KNOWN ISSUES
+C. KNOWN ISSUES
 --------------------------------
 
 1. The twitter handle for Bloomberg News, i.e. Bloombergnews, is no longer 
