@@ -38,3 +38,21 @@ The following packages were used:
 4. pandas 0.17
 5. matplotlib 1.5.0
 
+###############################################################################
+
+--------------------------------
+3 KNOWN ISSUES
+--------------------------------
+
+1. The twitter handle for Bloomberg News, i.e. Bloombergnews, is no longer 
+supported. So TweetCollector returns a 404 error when trying to access it. This
+is handled with a try/except block.
+
+2. The simple k-means clustering used is not suitable for this problem, given that 
+the "interesting" news cluster is inside the noise cluster. Probably a spectral
+clustering method would perform better on this dataset.
+
+3. The algorithm does not return the center of the clusters at the moment, which
+corresponds to the best tweet. Rather, the clustering class returns the keywords
+for each cluster. This is a straight-forward extension, but I did not implement
+it in the interest of submitting the test sooner rather than later.
